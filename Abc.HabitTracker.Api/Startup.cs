@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Abc.HabitTracker.Api.Entity;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Abc.HabitTracker.Api
 {
@@ -26,6 +31,8 @@ namespace Abc.HabitTracker.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
