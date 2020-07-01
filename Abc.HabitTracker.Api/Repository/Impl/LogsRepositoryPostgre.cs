@@ -1,7 +1,7 @@
 using Abc.HabitTracker.Api.Repository;
 using System;
 
-namespace Abc.HabitTracker.Api.Impl
+namespace Abc.HabitTracker.Api.Repository.Impl
 {
     public class LogsRepositoryPostgre : ILogsRepository
     {

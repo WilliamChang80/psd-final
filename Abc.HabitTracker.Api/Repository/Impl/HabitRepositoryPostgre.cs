@@ -2,7 +2,7 @@ using Abc.HabitTracker.Api.Repository;
 using Abc.HabitTracker.Api.Dto;
 using System;
 
-namespace Abc.HabitTracker.Api.Impl
+namespace Abc.HabitTracker.Api.Repository.Impl
 {
     public class HabitRepositoryPostgre : IHabitRepository
     {

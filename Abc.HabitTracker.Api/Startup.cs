@@ -15,6 +15,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Abc.HabitTracker.Api.Entity;
 using Microsoft.EntityFrameworkCore.Design;
+using Abc.HabitTracker.Api.Repository;
+using Abc.HabitTracker.Api.Repository.Impl;
+using Abc.HabitTracker.Api.Service;
+using Abc.HabitTracker.Api.Service.Impl;
 
 namespace Abc.HabitTracker.Api
 {
@@ -33,6 +37,19 @@ namespace Abc.HabitTracker.Api
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IBadgeRepository, BadgeRepositoryPostgre>();
+            services.AddScoped<IBadgeService, BadgeService>();
+
+            services.AddScoped<IHabitRepository, HabitRepositoryPostgre>();
+            services.AddScoped<IHabitService, HabitService>();
+
+            services.AddScoped<ILogsRepository, LogsRepositoryPostgre>();
+            services.AddScoped<ILogsService, LogsService>();
+
+            services.AddScoped<IUserRepository, UserRepositoryPostgre>();
+            services.AddScoped<IUserService, UserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,23 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Abc.HabitTracker.Api.Service;
 
 namespace Abc.HabitTracker.Api.Controllers
 {
     [ApiController]
     public class BadgesController : ControllerBase
     {
-        private readonly ILogger<BadgesController> _logger;
-
-        public BadgesController(ILogger<BadgesController> logger)
+        private readonly IBadgeService badgeService;
+        public BadgesController(IBadgeService _badgeService)
         {
-            _logger = logger;
+            badgeService = _badgeService;
         }
 
         [HttpGet("api/v1/users/{userID}/badges")]
-        public ActionResult<IEnumerable<Badge>> All(Guid userID)
+        public IEnumerable<Badge> All(Guid userID)
         {
-            return null;
+            return badgeService.GetBadgeByUserId(userID);
         }
     }
 }

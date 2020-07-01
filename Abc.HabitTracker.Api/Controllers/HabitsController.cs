@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Abc.HabitTracker.Api.Dto;
+using Abc.HabitTracker.Api.Service;
 
 namespace Abc.HabitTracker.Api.Controllers
 {
     [ApiController]
     public class HabitsController : ControllerBase
     {
-        private readonly ILogger<HabitsController> _logger;
-
-        public HabitsController(ILogger<HabitsController> logger)
+        private readonly IHabitService habitService;
+        public HabitsController(IHabitService _habitService)
         {
-            _logger = logger;
+            habitService = _habitService;
         }
 
         [HttpGet("api/v1/users/{userID}/habits")]
