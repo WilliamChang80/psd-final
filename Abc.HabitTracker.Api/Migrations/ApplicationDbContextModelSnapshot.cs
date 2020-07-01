@@ -34,7 +34,12 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Badges");
                 });
@@ -72,6 +77,33 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.ToTable("Habits");
                 });
 
+            modelBuilder.Entity("Abc.HabitTracker.Api.Logs", b =>
+                {
+                    b.Property<Guid>("LogsID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DayName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("HabitID")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LogsID");
+
+                    b.HasIndex("HabitID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Logs");
+                });
+
             modelBuilder.Entity("Abc.HabitTracker.Api.User", b =>
                 {
                     b.Property<Guid>("ID")
@@ -86,9 +118,33 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("Abc.HabitTracker.Api.Badge", b =>
+                {
+                    b.HasOne("Abc.HabitTracker.Api.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Abc.HabitTracker.Api.Habit", b =>
                 {
                     b.HasOne("Abc.HabitTracker.Api.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Abc.HabitTracker.Api.Logs", b =>
+                {
+                    b.HasOne("Abc.HabitTracker.Api.Habit", "habit")
+                        .WithMany()
+                        .HasForeignKey("HabitID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Abc.HabitTracker.Api.User", "user")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)

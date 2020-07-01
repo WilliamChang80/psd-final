@@ -18,5 +18,7 @@ namespace Abc.HabitTracker.Api.Entity
         public DbSet<Habit> Habits { get; set; }
 
         public DbSet<Badge> Badges { get; set; }
+
+        public DbSet<Logs> Logs { get; set; }
     }
 }
