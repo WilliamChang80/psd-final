@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Abc.HabitTracker.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200630170653_initialMigration")]
-    partial class initialMigration
+    [Migration("20200701100418_InitalMigration")]
+    partial class InitalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,12 +36,20 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uuid");
-
                     b.HasKey("ID");
 
                     b.ToTable("Badges");
+                });
+
+            modelBuilder.Entity("Abc.HabitTracker.Api.DayOff", b =>
+                {
+                    b.Property<string>("DayName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("HabitID")
+                        .HasColumnType("uuid");
+
+                    b.ToTable("DayOff");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Habit", b =>
@@ -61,7 +69,32 @@ namespace Abc.HabitTracker.Api.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("UserID");
+
                     b.ToTable("Habits");
+                });
+
+            modelBuilder.Entity("Abc.HabitTracker.Api.User", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Abc.HabitTracker.Api.Habit", b =>
+                {
+                    b.HasOne("Abc.HabitTracker.Api.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,2 @@
+ALTER TABLE "DayOff"
+ADD FOREIGN KEY ("HabitID") REFERENCES "Habits"("ID");
