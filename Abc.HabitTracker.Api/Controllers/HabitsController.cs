@@ -31,13 +31,13 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpPost("api/v1/users/{userID}/habits")]
-        public ActionResult<Habit> AddNewHabit(Guid userID, [FromBody] HabitDto data)
+        public ActionResult<Habit> AddNewHabit(Guid userID, [FromBody] HabitRequest data)
         {
             return null;
         }
 
         [HttpPut("api/v1/users/{userID}/habits/{id}")]
-        public ActionResult<Habit> UpdateHabit(Guid userID, Guid id, [FromBody] HabitDto data)
+        public ActionResult<Habit> UpdateHabit(Guid userID, Guid id, [FromBody] HabitRequest data)
         {
             return null;
         }

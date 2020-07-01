@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Abc.HabitTracker.Api.Dto
 {
-    public class HabitDto
+    public class HabitRequest
     {
         [JsonPropertyName("name")]
         public String Name { get; set; }
