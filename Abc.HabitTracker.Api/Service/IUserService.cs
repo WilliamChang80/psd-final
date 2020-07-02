@@ -6,6 +6,6 @@ namespace Abc.HabitTracker.Api.Service
 {
     public interface IUserService
     {
-        User getUserById(Guid UserId);
+        User GetUserById(Guid UserId);
     }
 }

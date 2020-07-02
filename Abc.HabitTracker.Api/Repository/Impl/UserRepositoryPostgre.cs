@@ -1,13 +1,20 @@
 using Abc.HabitTracker.Api.Repository;
 using System;
+using Abc.HabitTracker.Api.Entity;
 
 namespace Abc.HabitTracker.Api.Repository.Impl
 {
     public class UserRepositoryPostgre : IUserRepository
     {
-        public User getUserById(Guid UserId)
+        private ApplicationDbContext applicationDb;
+
+        public UserRepositoryPostgre(ApplicationDbContext _applicationDb)
         {
-            return null;
+            applicationDb = _applicationDb;
+        }
+        public User GetUserById(Guid UserId)
+        {
+            return applicationDb.Users.Find(UserId);
         }
     }
 }

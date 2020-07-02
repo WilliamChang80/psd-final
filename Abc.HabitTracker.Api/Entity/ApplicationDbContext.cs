@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Abc.HabitTracker.Api.Entity
 {
@@ -20,5 +21,7 @@ namespace Abc.HabitTracker.Api.Entity
         public DbSet<Badge> Badges { get; set; }
 
         public DbSet<Logs> Logs { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

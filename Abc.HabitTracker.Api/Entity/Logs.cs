@@ -12,6 +12,7 @@ namespace Abc.HabitTracker.Api
     {
         [JsonPropertyName("id")]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid LogsID { get; set; }
 
         [JsonProperty("user_id")]

@@ -115,7 +115,7 @@ namespace Abc.HabitTracker.Api.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Badge", b =>

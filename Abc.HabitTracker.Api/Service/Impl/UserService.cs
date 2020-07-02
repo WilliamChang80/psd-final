@@ -13,9 +13,9 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             userRepository = _userRepository;
         }
-        public User getUserById(Guid UserId)
+        public User GetUserById(Guid UserId)
         {
-            return null;
+            return userRepository.GetUserById(UserId);
         }
     }
 }

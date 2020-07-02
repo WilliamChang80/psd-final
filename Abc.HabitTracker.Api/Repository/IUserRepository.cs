@@ -5,7 +5,7 @@ namespace Abc.HabitTracker.Api.Repository
 {
     public interface IUserRepository
     {
-        User getUserById(Guid UserId);
+        User GetUserById(Guid UserId);
 
     }
 }

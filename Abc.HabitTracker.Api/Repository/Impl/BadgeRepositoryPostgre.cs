@@ -1,11 +1,19 @@
 using Abc.HabitTracker.Api.Repository;
 using System;
 using System.Collections.Generic;
+using Abc.HabitTracker.Api.Entity;
 
 namespace Abc.HabitTracker.Api.Repository.Impl
 {
     public class BadgeRepositoryPostgre : IBadgeRepository
     {
+        private ApplicationDbContext applicationDb;
+
+        public BadgeRepositoryPostgre(ApplicationDbContext _applicationDb)
+        {
+            applicationDb = _applicationDb;
+        }
+
         public IEnumerable<Badge> GetBadgeByUserId(Guid UserId)
         {
             return new[] {

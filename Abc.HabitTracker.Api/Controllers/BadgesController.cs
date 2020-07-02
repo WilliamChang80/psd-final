@@ -11,16 +11,16 @@ namespace Abc.HabitTracker.Api.Controllers
     [ApiController]
     public class BadgesController : ControllerBase
     {
-        private readonly IBadgeService badgeService;
-        public BadgesController(IBadgeService _badgeService)
+        private readonly IUserService userService;
+        public BadgesController(IUserService _userService)
         {
-            badgeService = _badgeService;
+            userService = _userService;
         }
 
         [HttpGet("api/v1/users/{userID}/badges")]
-        public IEnumerable<Badge> All(Guid userID)
+        public User All(Guid userID)
         {
-            return badgeService.GetBadgeByUserId(userID);
+            return userService.GetUserById(userID);
         }
     }
 }

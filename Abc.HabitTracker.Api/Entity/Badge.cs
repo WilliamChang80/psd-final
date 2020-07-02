@@ -11,6 +11,7 @@ namespace Abc.HabitTracker.Api
     public class Badge
     {
         [JsonPropertyName("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid ID { get; set; }
 
