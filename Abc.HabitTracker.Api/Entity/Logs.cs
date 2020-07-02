@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abc.HabitTracker.Api
 {
+    [Table("user_habit")]
     public class Logs
     {
         [JsonPropertyName("id")]
@@ -18,8 +19,6 @@ namespace Abc.HabitTracker.Api
         [JsonProperty("user_id")]
         [ForeignKey(nameof(User))]
         public Guid UserID { get; set; }
-
-        public User user { get; set; }
 
         [JsonProperty("habit_id")]
         [ForeignKey(nameof(Habit))]
