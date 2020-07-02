@@ -47,10 +47,7 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.Property<string>("DayName")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("HabitID")
-                        .HasColumnType("uuid");
-
-                    b.ToTable("habit_day_off");
+                    b.ToTable("habit_dayoff");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Habit", b =>
@@ -70,7 +67,7 @@ namespace Abc.HabitTracker.Api.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("habits");
+                    b.ToTable("habit");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Logs", b =>
@@ -109,7 +106,7 @@ namespace Abc.HabitTracker.Api.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("users");
+                    b.ToTable("user");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Logs", b =>

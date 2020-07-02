@@ -8,13 +8,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abc.HabitTracker.Api
 {
-    [Table("habit_day_off")]
+    [Table("habit_dayoff")]
     public class DayOff
     {
-        [JsonProperty("habit_id")]
-        [ForeignKey(nameof(Habit))]
-        public Guid HabitID { get; set; }
-
         [JsonPropertyName("day_name")]
         public String DayName { get; set; }
     }

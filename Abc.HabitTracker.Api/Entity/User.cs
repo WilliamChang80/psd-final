@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abc.HabitTracker.Api
 {
-    [Table("users")]
+    [Table("user")]
     public class User
     {
         [JsonPropertyName("id")]

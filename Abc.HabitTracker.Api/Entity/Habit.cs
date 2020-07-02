@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abc.HabitTracker.Api
 {
-    [Table("habits")]
+    [Table("habit")]
     public class Habit
     {
         [JsonPropertyName("id")]
@@ -27,7 +27,7 @@ namespace Abc.HabitTracker.Api
 
         [JsonProperty("day_off")]
         [NotMapped]
-        public virtual ICollection<DayOff> DayOffList { get; set; }
+        public List<DayOff> DayOffList { get; set; }
 
     }
 }

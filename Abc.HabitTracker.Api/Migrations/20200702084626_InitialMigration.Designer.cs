@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Abc.HabitTracker.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200702074326_InitialMigration")]
+    [Migration("20200702084626_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,21 @@ namespace Abc.HabitTracker.Api.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("Abc.HabitTracker.Api.User", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("user");
+                });
+
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Badge", b =>
                 {
@@ -45,15 +60,15 @@ namespace Abc.HabitTracker.Api.Migrations
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.DayOff", b =>
-                {
-                    b.Property<string>("DayName")
-                        .HasColumnType("text");
+               {
+                   b.Property<string>("DayName")
+                       .HasColumnType("text");
 
-                    b.Property<Guid>("HabitID")
-                        .HasColumnType("uuid");
+                   b.Property<Guid>("HabitID")
+                       .HasColumnType("uuid");
 
-                    b.ToTable("habit_day_off");
-                });
+                   b.ToTable("habit_dayoff");
+               });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Habit", b =>
                 {
@@ -72,7 +87,7 @@ namespace Abc.HabitTracker.Api.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("habits");
+                    b.ToTable("habit");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Logs", b =>
@@ -98,20 +113,6 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.HasIndex("HabitID");
 
                     b.ToTable("user_habit");
-                });
-
-            modelBuilder.Entity("Abc.HabitTracker.Api.User", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("Abc.HabitTracker.Api.Logs", b =>
