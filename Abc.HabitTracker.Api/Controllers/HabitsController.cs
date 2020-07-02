@@ -31,9 +31,9 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpPost("api/v1/users/{userID}/habits")]
-        public ActionResult<Habit> AddNewHabit(Guid userID, [FromBody] HabitRequest data)
+        public Habit AddNewHabit(Guid userID, [FromBody] HabitRequest data)
         {
-            return null;
+            return habitService.CreateHabit(data, userID);
         }
 
         [HttpPut("api/v1/users/{userID}/habits/{id}")]

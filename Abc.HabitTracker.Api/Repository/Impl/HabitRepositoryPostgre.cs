@@ -26,9 +26,11 @@ namespace Abc.HabitTracker.Api.Repository.Impl
         {
             return null;
         }
-        public Habit CreateHabit(HabitRequest HabitRequest)
+        public Habit CreateHabit(Habit habit)
         {
-            return null;
+            applicationDb.Habits.Add(habit);
+            applicationDb.SaveChanges();
+            return habit;
         }
         public Habit DeleteHabit(Guid habitId)
         {

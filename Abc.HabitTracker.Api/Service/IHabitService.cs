@@ -9,7 +9,8 @@ namespace Abc.HabitTracker.Api.Service
     {
         Habit GetHabitById(Guid habitId);
 
-        Habit CreateHabit(HabitRequest HabitRequest);
+        Habit CreateHabit(HabitRequest HabitRequest, Guid UserID);
+
         List<Habit> GetHabitByUserId(Guid userId);
 
         Habit DeleteHabit(Guid habitId);
