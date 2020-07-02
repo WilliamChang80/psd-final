@@ -13,7 +13,7 @@ namespace Abc.HabitTracker.Api.Service
 
         List<Habit> GetHabitByUserId(Guid userId);
 
-        Habit DeleteHabit(Guid habitId);
+        Habit DeleteHabit(Guid userId, Guid habitId);
 
         Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest);
     }

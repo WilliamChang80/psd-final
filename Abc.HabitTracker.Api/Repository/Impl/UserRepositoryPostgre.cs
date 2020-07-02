@@ -12,6 +12,7 @@ namespace Abc.HabitTracker.Api.Repository.Impl
         {
             applicationDb = _applicationDb;
         }
+
         public User GetUserById(Guid UserId)
         {
             return applicationDb.Users.Find(UserId);

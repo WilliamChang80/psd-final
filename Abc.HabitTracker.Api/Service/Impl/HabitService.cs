@@ -4,6 +4,7 @@ using Abc.HabitTracker.Api.Service;
 using Abc.HabitTracker.Api.Repository;
 using Abc.HabitTracker.Api.Factory;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Abc.HabitTracker.Api.Service.Impl
 {
@@ -12,9 +13,12 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         private readonly IHabitRepository habitRepository;
 
-        public HabitService(IHabitRepository _habitRepository)
+        private readonly IUserRepository userRepository;
+
+        public HabitService(IHabitRepository _habitRepository, IUserRepository _userRepository)
         {
             habitRepository = _habitRepository;
+            userRepository = _userRepository;
         }
         public List<Habit> GetHabitByUserId(Guid userID)
         {
@@ -30,9 +34,20 @@ namespace Abc.HabitTracker.Api.Service.Impl
             Habit habit = habitFactory.Create(HabitRequest, UserID);
             return habitRepository.CreateHabit(habit);
         }
-        public Habit DeleteHabit(Guid habitId)
+        public Habit DeleteHabit(Guid userId, Guid habitId)
         {
-            return null;
+            User user = userRepository.GetUserById(userId);
+            if (user is null)
+            {
+                throw new Exception("User not Found !");
+            }
+            Habit habit = habitRepository.GetHabitById(habitId);
+            if (userId != habit.UserID)
+            {
+                throw new Exception("User ID and User ID in Habit Must Match !");
+            }
+            habitRepository.DeleteHabit(habitId);
+            return habit;
         }
 
         public Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest)

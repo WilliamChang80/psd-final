@@ -19,6 +19,7 @@ using Abc.HabitTracker.Api.Repository;
 using Abc.HabitTracker.Api.Repository.Impl;
 using Abc.HabitTracker.Api.Service;
 using Abc.HabitTracker.Api.Service.Impl;
+using System.Net.Mime;
 
 namespace Abc.HabitTracker.Api
 {
@@ -34,7 +35,20 @@ namespace Abc.HabitTracker.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+            .ConfigureApiBehaviorOptions(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var result = new BadRequestObjectResult(context.ModelState);
+
+                    result.ContentTypes.Add(MediaTypeNames.Application.Json);
+                    result.ContentTypes.Add(MediaTypeNames.Application.Xml);
+
+                    return result;
+                };
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 

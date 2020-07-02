@@ -43,9 +43,9 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpDelete("api/v1/users/{userID}/habits/{id}")]
-        public ActionResult<Habit> DeleteHabit(Guid userID, Guid id)
+        public ActionResult<Habit> DeleteHabit(Guid userId, Guid id)
         {
-            return null;
+            return habitService.DeleteHabit(userId, id);
         }
 
         [HttpPost("api/v1/users/{userID}/habits/{id}/logs")]

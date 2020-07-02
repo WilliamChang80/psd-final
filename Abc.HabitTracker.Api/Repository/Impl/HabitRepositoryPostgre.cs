@@ -24,7 +24,7 @@ namespace Abc.HabitTracker.Api.Repository.Impl
         }
         public Habit GetHabitById(Guid habitId)
         {
-            return null;
+            return applicationDb.Habits.Find(habitId);
         }
         public Habit CreateHabit(Habit habit)
         {
@@ -34,7 +34,10 @@ namespace Abc.HabitTracker.Api.Repository.Impl
         }
         public Habit DeleteHabit(Guid habitId)
         {
-            return null;
+            Habit habit = GetHabitById(habitId);
+            applicationDb.Habits.Remove(habit);
+            applicationDb.SaveChanges();
+            return habit;
         }
 
         public Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest)
