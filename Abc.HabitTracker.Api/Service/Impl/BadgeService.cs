@@ -13,7 +13,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             badgeRepository = _badgeRepository;
         }
-        public IEnumerable<Badge> GetBadgeByUserId(Guid UserId)
+        public List<Badge> GetBadgeByUserId(Guid UserId)
         {
             return badgeRepository.GetBadgeByUserId(UserId);
         }

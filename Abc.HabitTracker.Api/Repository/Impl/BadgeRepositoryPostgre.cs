@@ -2,6 +2,7 @@ using Abc.HabitTracker.Api.Repository;
 using System;
 using System.Collections.Generic;
 using Abc.HabitTracker.Api.Entity;
+using System.Linq;
 
 namespace Abc.HabitTracker.Api.Repository.Impl
 {
@@ -14,22 +15,10 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             applicationDb = _applicationDb;
         }
 
-        public IEnumerable<Badge> GetBadgeByUserId(Guid UserId)
+        public List<Badge> GetBadgeByUserId(Guid UserId)
         {
-            return new[] {
-                    new Badge {
-                    ID = Guid.NewGuid(),
-                    Name = "Dominating",
-                    Description = "4+ streak",
-                    CreatedAt = DateTime.Now.AddDays(-13),
-                    },
-                    new Badge {
-                    ID = Guid.NewGuid(),
-                    Name = "Epic Comeback",
-                    Description = "10 streak after 10 days without logging",
-                    CreatedAt = DateTime.Now.AddDays(-7),
-                }
-            };
+            return applicationDb.Badges.Where(b => b.UserID == UserId)
+            .ToList();
         }
 
         public Badge CreateBadge(Badge badge)

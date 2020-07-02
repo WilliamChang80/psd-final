@@ -6,7 +6,7 @@ namespace Abc.HabitTracker.Api.Service
 {
     public interface IBadgeService
     {
-        IEnumerable<Badge> GetBadgeByUserId(Guid UserId);
+        List<Badge> GetBadgeByUserId(Guid UserId);
         Badge CreateBadge(Badge badge);
     }
 }

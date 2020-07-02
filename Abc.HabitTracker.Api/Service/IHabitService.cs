@@ -1,6 +1,7 @@
 using System;
 using Abc.HabitTracker.Api.Dto;
 using Abc.HabitTracker.Api.Service;
+using System.Collections.Generic;
 
 namespace Abc.HabitTracker.Api.Service
 {
@@ -9,6 +10,7 @@ namespace Abc.HabitTracker.Api.Service
         Habit GetHabitById(Guid habitId);
 
         Habit CreateHabit(HabitRequest HabitRequest);
+        List<Habit> GetHabitByUserId(Guid userId);
 
         Habit DeleteHabit(Guid habitId);
 

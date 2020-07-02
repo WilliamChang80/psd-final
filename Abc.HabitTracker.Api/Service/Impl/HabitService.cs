@@ -2,6 +2,7 @@ using System;
 using Abc.HabitTracker.Api.Dto;
 using Abc.HabitTracker.Api.Service;
 using Abc.HabitTracker.Api.Repository;
+using System.Collections.Generic;
 
 namespace Abc.HabitTracker.Api.Service.Impl
 {
@@ -13,6 +14,10 @@ namespace Abc.HabitTracker.Api.Service.Impl
         public HabitService(IHabitRepository _habitRepository)
         {
             habitRepository = _habitRepository;
+        }
+        public List<Habit> GetHabitByUserId(Guid userID)
+        {
+            return habitRepository.GetHabitByUserId(userID);
         }
         public Habit GetHabitById(Guid habitId)
         {

@@ -19,9 +19,9 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpGet("api/v1/users/{userID}/habits")]
-        public ActionResult<IEnumerable<Habit>> All(Guid userID)
+        public List<Habit> All(Guid userID)
         {
-            return null;
+            return habitService.GetHabitByUserId(userID);
         }
 
         [HttpGet("api/v1/users/{userID}/habits/{id}")]

@@ -18,9 +18,6 @@ namespace Abc.HabitTracker.Api
         [JsonPropertyName("name")]
         public String Name { get; set; }
 
-        [JsonProperty("user")]
-        public User User { get; set; }
-
         [JsonPropertyName("user_id")]
         public Guid UserID { get; set; }
 
