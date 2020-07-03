@@ -55,9 +55,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 CurrentStreak = logs.CurrentStreak,
                 //currentStreak get from database logs
                 LongestStreak = logs.LongestStreak,
-                //LogCount get from database logs
                 LogCount = logs.LogCount,
-                //Log get from database logs
                 Logs = logs.Logs,
                 UserID = habit.UserID,
                 CreatedAt = habit.CreatedAt
@@ -76,6 +74,26 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 throw new Exception("User ID and User ID in Habit Must Match !");
             }
         }
+
+        public HabitResponse ConvertFromHabitToHabitResponseByRemovingDayOff(Habit habit, List<String> dayOffList)
+        {
+            HabitResponse logs = GetRequiredDataFromLogs(habit.ID);
+            return new HabitResponse()
+            {
+                ID = habit.ID,
+                Name = habit.Name,
+                DayOffList = dayOffList,
+                //currentStreak get from database logs
+                CurrentStreak = logs.CurrentStreak,
+                //currentStreak get from database logs
+                LongestStreak = logs.LongestStreak,
+                LogCount = logs.LogCount,
+                Logs = logs.Logs,
+                UserID = habit.UserID,
+                CreatedAt = habit.CreatedAt
+            };
+        }
+
         public List<HabitResponse> GetHabitByUserId(Guid userID)
         {
             List<Habit> habitList = habitRepository.GetHabitByUserId(userID);
@@ -105,8 +123,11 @@ namespace Abc.HabitTracker.Api.Service.Impl
         public HabitResponse DeleteHabit(Guid userId, Guid habitId)
         {
             ValidateUserID(userId, habitId);
+            List<String> dayOffs = dayOffRepository.GetDayOffByHabitId(habitId);
+            Console.WriteLine(dayOffs.Count);
             Habit habit = habitRepository.DeleteHabit(habitId);
-            return ConvertFromHabitToHabitResponse(habit);
+            dayOffRepository.DeleteDayOff(habitId);
+            return ConvertFromHabitToHabitResponseByRemovingDayOff(habit, dayOffs);
         }
 
         public HabitResponse UpdateHabit(Guid userId, Guid habitId, HabitRequest habitRequest)

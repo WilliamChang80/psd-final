@@ -34,9 +34,23 @@ namespace Abc.HabitTracker.Api.Repository.Impl
                 var dayName = new NpgsqlParameter("@dayName", dayOff.DayName);
                 applicationDb.Database
                 .ExecuteSqlRaw("INSERT INTO habit_dayoff VALUES (@dayName, @habitID);", dayName, habitID);
-                applicationDb.SaveChanges();
             }
+            applicationDb.SaveChanges();
             return dayOffList;
+        }
+
+        public List<DayOff> DeleteDayOff(Guid habitId)
+        {
+            List<DayOff> dayOffs = applicationDb.DayOffs
+            .Where(l => l.HabitID == habitId)
+            .ToList();
+
+            foreach (DayOff d in dayOffs)
+            {
+                applicationDb.DayOffs.Remove(d);
+            }
+            applicationDb.SaveChanges();
+            return dayOffs;
         }
     }
 }

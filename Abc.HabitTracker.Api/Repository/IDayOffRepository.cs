@@ -9,5 +9,7 @@ namespace Abc.HabitTracker.Api.Repository
         List<String> GetDayOffByHabitId(Guid habitId);
 
         List<DayOff> CreateDayOff(List<DayOff> dayOffList);
+
+        List<DayOff> DeleteDayOff(Guid habitId);
     }
 }
