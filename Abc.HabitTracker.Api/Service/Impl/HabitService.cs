@@ -45,12 +45,11 @@ namespace Abc.HabitTracker.Api.Service.Impl
         public HabitResponse ConvertFromHabitToHabitResponse(Habit habit)
         {
             HabitResponse logs = GetRequiredDataFromLogs(habit.ID);
-            List<String> list = dayOffRepository.getDayOffByHabitId(habit.ID);
+            List<String> list = dayOffRepository.GetDayOffByHabitId(habit.ID);
             return new HabitResponse()
             {
                 ID = habit.ID,
                 Name = habit.Name,
-                //dayoff get from database dayoff
                 DayOffList = list,
                 //currentStreak get from database logs
                 CurrentStreak = logs.CurrentStreak,
@@ -98,7 +97,9 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             HabitFactory habitFactory = new HabitFactory();
             Habit habit = habitFactory.Create(HabitRequest, UserID);
+            List<DayOff> dayOffs = DayOffFactory.Create(HabitRequest.DaysOff, habit.ID);
             habitRepository.CreateHabit(habit);
+            dayOffRepository.CreateDayOff(dayOffs);
             return ConvertFromHabitToHabitResponse(habit);
         }
         public HabitResponse DeleteHabit(Guid userId, Guid habitId)

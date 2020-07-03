@@ -7,7 +7,6 @@ namespace Abc.HabitTracker.Api.Factory
 {
     class HabitFactory
     {
-
         public List<DayOff> CreateDayOff(List<String> DaysOff)
         {
             List<DayOff> DayOffList = new List<DayOff>();

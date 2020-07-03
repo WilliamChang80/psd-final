@@ -6,6 +6,8 @@ namespace Abc.HabitTracker.Api.Repository
 {
     public interface IDayOffRepository
     {
-        List<String> getDayOffByHabitId(Guid habitId);
+        List<String> GetDayOffByHabitId(Guid habitId);
+
+        List<DayOff> CreateDayOff(List<DayOff> dayOffList);
     }
 }
