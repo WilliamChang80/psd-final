@@ -64,6 +64,7 @@ namespace Abc.HabitTracker.Api
             services.AddScoped<IUserRepository, UserRepositoryPostgre>();
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IDayOffRepository, DayOffRepositoryPostgre>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

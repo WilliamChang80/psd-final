@@ -17,11 +17,14 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         private readonly ILogsRepository logsRepository;
 
-        public HabitService(IHabitRepository _habitRepository, IUserRepository _userRepository, ILogsRepository _logsRepository)
+        private readonly IDayOffRepository dayOffRepository;
+        public HabitService(IHabitRepository _habitRepository, IUserRepository _userRepository,
+        ILogsRepository _logsRepository, IDayOffRepository _dayOffRepository)
         {
             habitRepository = _habitRepository;
             userRepository = _userRepository;
             logsRepository = _logsRepository;
+            dayOffRepository = _dayOffRepository;
         }
 
         public HabitResponse GetRequiredDataFromLogs(Guid HabitId)
@@ -42,7 +45,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
         public HabitResponse ConvertFromHabitToHabitResponse(Habit habit)
         {
             HabitResponse logs = GetRequiredDataFromLogs(habit.ID);
-            List<DayOff> list = new List<DayOff>();
+            List<String> list = dayOffRepository.getDayOffByHabitId(habit.ID);
             return new HabitResponse()
             {
                 ID = habit.ID,

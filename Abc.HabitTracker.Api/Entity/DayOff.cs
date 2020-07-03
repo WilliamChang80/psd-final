@@ -11,6 +11,10 @@ namespace Abc.HabitTracker.Api
     [Table("habit_dayoff")]
     public class DayOff
     {
+
+        [JsonPropertyName("habit_id")]
+        [ForeignKey(nameof(Habit))]
+        public Guid HabitID { get; set; }
         [JsonPropertyName("day_name")]
         public String DayName { get; set; }
     }
