@@ -16,5 +16,7 @@ namespace Abc.HabitTracker.Api.Service
         HabitResponse DeleteHabit(Guid userId, Guid habitId);
 
         HabitResponse UpdateHabit(Guid userId, Guid habitId, HabitRequest HabitRequest);
+
+        HabitResponse CreateHabitLog(Guid userId, Guid habitId);
     }
 }

@@ -61,6 +61,19 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 CreatedAt = habit.CreatedAt
             };
         }
+        private void ValidateUserID(Guid userId, Guid habitId)
+        {
+            User user = userRepository.GetUserById(userId);
+            if (user is null)
+            {
+                throw new Exception("User not Found !");
+            }
+            Habit habit = habitRepository.GetHabitById(habitId);
+            if (userId != habit.UserID)
+            {
+                throw new Exception("User ID and User ID in Habit Must Match !");
+            }
+        }
         public List<HabitResponse> GetHabitByUserId(Guid userID)
         {
             List<Habit> habitList = habitRepository.GetHabitByUserId(userID);
@@ -101,18 +114,13 @@ namespace Abc.HabitTracker.Api.Service.Impl
             return ConvertFromHabitToHabitResponse(updatedHabit);
         }
 
-        private void ValidateUserID(Guid userId, Guid habitId)
+        public HabitResponse CreateHabitLog(Guid userId, Guid habitId)
         {
-            User user = userRepository.GetUserById(userId);
-            if (user is null)
-            {
-                throw new Exception("User not Found !");
-            }
+            ValidateUserID(userId, habitId);
             Habit habit = habitRepository.GetHabitById(habitId);
-            if (userId != habit.UserID)
-            {
-                throw new Exception("User ID and User ID in Habit Must Match !");
-            }
+            Logs logs = LogsFactory.CreateLogs(habit);
+            logsRepository.CreateLogs(logs);
+            return ConvertFromHabitToHabitResponse(habit);
         }
     }
 }

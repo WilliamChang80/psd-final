@@ -25,7 +25,7 @@ namespace Abc.HabitTracker.Api.Dto
         [JsonPropertyName("name")]
         public String Name { get; set; }
 
-        [JsonProperty("day_off")]
+        [JsonPropertyName("day_off")]
         public List<DayOff> DayOffList { get; set; }
 
         [JsonPropertyName("current_streak")]

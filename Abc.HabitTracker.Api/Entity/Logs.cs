@@ -24,8 +24,6 @@ namespace Abc.HabitTracker.Api
         [ForeignKey(nameof(Habit))]
         public Guid HabitID { get; set; }
 
-        public Habit habit { get; set; }
-
         [JsonPropertyName("day_name")]
         public String DayName { get; set; }
 

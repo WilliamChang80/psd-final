@@ -7,7 +7,7 @@ namespace Abc.HabitTracker.Api.Repository
     public interface ILogsRepository
     {
         //changed to DTO later
-        Habit CreateLogs(Logs logs);
+        Logs CreateLogs(Logs logs);
         Int16 getCurrentStreak(Guid HabitId);
         Int16 getLongestStreak(Guid HabitId);
         Int16 getLogCount(Guid HabitId);

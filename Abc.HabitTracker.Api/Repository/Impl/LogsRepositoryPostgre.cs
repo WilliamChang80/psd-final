@@ -14,9 +14,11 @@ namespace Abc.HabitTracker.Api.Repository.Impl
         {
             applicationDb = _applicationDb;
         }
-        public Habit CreateLogs(Logs logs)
+        public Logs CreateLogs(Logs logs)
         {
-            return null;
+            applicationDb.Logs.Add(logs);
+            applicationDb.SaveChanges();
+            return logs;
         }
 
         public Int16 getCurrentStreak(Guid HabitId)

@@ -51,7 +51,7 @@ namespace Abc.HabitTracker.Api.Controllers
         [HttpPost("api/v1/users/{userID}/habits/{id}/logs")]
         public ActionResult<HabitResponse> Log(Guid userID, Guid id)
         {
-            return null;
+            return habitService.CreateHabitLog(userID, id);
         }
     }
 }
