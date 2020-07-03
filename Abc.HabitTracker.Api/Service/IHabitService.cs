@@ -7,7 +7,7 @@ namespace Abc.HabitTracker.Api.Service
 {
     public interface IHabitService
     {
-        HabitResponse GetHabitById(Guid habitId);
+        HabitResponse GetHabitById(Guid userId, Guid habitId);
 
         HabitResponse CreateHabit(HabitRequest HabitRequest, Guid UserID);
 

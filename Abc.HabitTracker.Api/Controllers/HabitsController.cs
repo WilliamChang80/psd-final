@@ -19,7 +19,7 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpGet("api/v1/users/{userID}/habits")]
-        public List<HabitResponse> All(Guid userID)
+        public ActionResult<List<HabitResponse>> All(Guid userID)
         {
             return habitService.GetHabitByUserId(userID);
         }
@@ -27,11 +27,11 @@ namespace Abc.HabitTracker.Api.Controllers
         [HttpGet("api/v1/users/{userID}/habits/{id}")]
         public ActionResult<HabitResponse> Get(Guid userID, Guid id)
         {
-            return null;
+            return habitService.GetHabitById(userID, id);
         }
 
         [HttpPost("api/v1/users/{userID}/habits")]
-        public HabitResponse AddNewHabit(Guid userID, [FromBody] HabitRequest data)
+        public ActionResult<HabitResponse> AddNewHabit(Guid userID, [FromBody] HabitRequest data)
         {
             return habitService.CreateHabit(data, userID);
         }

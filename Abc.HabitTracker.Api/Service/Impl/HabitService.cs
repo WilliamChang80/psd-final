@@ -85,8 +85,9 @@ namespace Abc.HabitTracker.Api.Service.Impl
             }
             return habitResponseList;
         }
-        public HabitResponse GetHabitById(Guid habitId)
+        public HabitResponse GetHabitById(Guid userId, Guid habitId)
         {
+            ValidateUserID(userId, habitId);
             Habit habit = habitRepository.GetHabitById(habitId);
             return ConvertFromHabitToHabitResponse(habit);
         }
