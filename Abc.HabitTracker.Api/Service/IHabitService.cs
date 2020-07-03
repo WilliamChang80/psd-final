@@ -7,14 +7,14 @@ namespace Abc.HabitTracker.Api.Service
 {
     public interface IHabitService
     {
-        Habit GetHabitById(Guid habitId);
+        HabitResponse GetHabitById(Guid habitId);
 
-        Habit CreateHabit(HabitRequest HabitRequest, Guid UserID);
+        HabitResponse CreateHabit(HabitRequest HabitRequest, Guid UserID);
 
-        List<Habit> GetHabitByUserId(Guid userId);
+        List<HabitResponse> GetHabitByUserId(Guid userId);
 
-        Habit DeleteHabit(Guid userId, Guid habitId);
+        HabitResponse DeleteHabit(Guid userId, Guid habitId);
 
-        Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest);
+        HabitResponse UpdateHabit(Guid userId, Guid habitId, HabitRequest HabitRequest);
     }
 }

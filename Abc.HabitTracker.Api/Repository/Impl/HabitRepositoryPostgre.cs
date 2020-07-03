@@ -40,9 +40,15 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             return habit;
         }
 
-        public Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest)
+        public Habit UpdateHabit(Guid habitId, Habit updatedHabit)
         {
-            return null;
+            Habit habit = GetHabitById(habitId);
+            if (habit != null)
+            {
+                applicationDb.Entry(habit).CurrentValues.SetValues(updatedHabit);
+            }
+            applicationDb.SaveChanges();
+            return updatedHabit;
         }
     }
 }

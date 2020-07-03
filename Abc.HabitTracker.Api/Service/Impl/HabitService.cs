@@ -15,26 +15,93 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         private readonly IUserRepository userRepository;
 
-        public HabitService(IHabitRepository _habitRepository, IUserRepository _userRepository)
+        private readonly ILogsRepository logsRepository;
+
+        public HabitService(IHabitRepository _habitRepository, IUserRepository _userRepository, ILogsRepository _logsRepository)
         {
             habitRepository = _habitRepository;
             userRepository = _userRepository;
+            logsRepository = _logsRepository;
         }
-        public List<Habit> GetHabitByUserId(Guid userID)
+
+        public HabitResponse GetRequiredDataFromLogs(Guid HabitId)
         {
-            return habitRepository.GetHabitByUserId(userID);
+            Int16 CurrentStreak = logsRepository.getCurrentStreak(HabitId);
+            Int16 LongestStreak = logsRepository.getLongestStreak(HabitId);
+            Int16 LogCount = logsRepository.getLogCount(HabitId);
+            List<DateTime> Logs = logsRepository.GetAllLogsTime(HabitId);
+
+            return new HabitResponse()
+            {
+                CurrentStreak = CurrentStreak,
+                LongestStreak = LongestStreak,
+                LogCount = LogCount,
+                Logs = Logs
+            };
         }
-        public Habit GetHabitById(Guid habitId)
+        public HabitResponse ConvertFromHabitToHabitResponse(Habit habit)
         {
-            return null;
+            HabitResponse logs = GetRequiredDataFromLogs(habit.ID);
+            List<DayOff> list = new List<DayOff>();
+            return new HabitResponse()
+            {
+                ID = habit.ID,
+                Name = habit.Name,
+                //dayoff get from database dayoff
+                DayOffList = list,
+                //currentStreak get from database logs
+                CurrentStreak = logs.CurrentStreak,
+                //currentStreak get from database logs
+                LongestStreak = logs.LongestStreak,
+                //LogCount get from database logs
+                LogCount = logs.LogCount,
+                //Log get from database logs
+                Logs = logs.Logs,
+                UserID = habit.UserID,
+                CreatedAt = habit.CreatedAt
+            };
         }
-        public Habit CreateHabit(HabitRequest HabitRequest, Guid UserID)
+        public List<HabitResponse> GetHabitByUserId(Guid userID)
+        {
+            List<Habit> habitList = habitRepository.GetHabitByUserId(userID);
+            List<HabitResponse> habitResponseList = new List<HabitResponse>();
+            foreach (Habit habit in habitList)
+            {
+                HabitResponse habitResponse = ConvertFromHabitToHabitResponse(habit);
+                habitResponseList.Add(habitResponse);
+            }
+            return habitResponseList;
+        }
+        public HabitResponse GetHabitById(Guid habitId)
+        {
+            Habit habit = habitRepository.GetHabitById(habitId);
+            return ConvertFromHabitToHabitResponse(habit);
+        }
+        public HabitResponse CreateHabit(HabitRequest HabitRequest, Guid UserID)
         {
             HabitFactory habitFactory = new HabitFactory();
             Habit habit = habitFactory.Create(HabitRequest, UserID);
-            return habitRepository.CreateHabit(habit);
+            habitRepository.CreateHabit(habit);
+            return ConvertFromHabitToHabitResponse(habit);
         }
-        public Habit DeleteHabit(Guid userId, Guid habitId)
+        public HabitResponse DeleteHabit(Guid userId, Guid habitId)
+        {
+            ValidateUserID(userId, habitId);
+            Habit habit = habitRepository.DeleteHabit(habitId);
+            return ConvertFromHabitToHabitResponse(habit);
+        }
+
+        public HabitResponse UpdateHabit(Guid userId, Guid habitId, HabitRequest habitRequest)
+        {
+            ValidateUserID(userId, habitId);
+            Habit habit = habitRepository.GetHabitById(habitId);
+            HabitFactory habitFactory = new HabitFactory();
+            Habit updatedHabit = habitFactory.CreateUpdatedData(habitRequest, habit);
+            habitRepository.UpdateHabit(habitId, updatedHabit);
+            return ConvertFromHabitToHabitResponse(updatedHabit);
+        }
+
+        private void ValidateUserID(Guid userId, Guid habitId)
         {
             User user = userRepository.GetUserById(userId);
             if (user is null)
@@ -46,13 +113,6 @@ namespace Abc.HabitTracker.Api.Service.Impl
             {
                 throw new Exception("User ID and User ID in Habit Must Match !");
             }
-            habitRepository.DeleteHabit(habitId);
-            return habit;
-        }
-
-        public Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest)
-        {
-            return null;
         }
     }
 }

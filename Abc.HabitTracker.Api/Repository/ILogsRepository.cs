@@ -1,6 +1,6 @@
 using Abc.HabitTracker.Api.Dto;
 using System;
-
+using System.Collections.Generic;
 
 namespace Abc.HabitTracker.Api.Repository
 {
@@ -8,6 +8,9 @@ namespace Abc.HabitTracker.Api.Repository
     {
         //changed to DTO later
         Habit CreateLogs(Logs logs);
-
+        Int16 getCurrentStreak(Guid HabitId);
+        Int16 getLongestStreak(Guid HabitId);
+        Int16 getLogCount(Guid HabitId);
+        List<DateTime> GetAllLogsTime(Guid HabitId);
     }
 }

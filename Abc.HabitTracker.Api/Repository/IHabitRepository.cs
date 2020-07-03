@@ -11,7 +11,7 @@ namespace Abc.HabitTracker.Api.Repository
         Habit CreateHabit(Habit habit);
         Habit DeleteHabit(Guid habitId);
         List<Habit> GetHabitByUserId(Guid userId);
-        Habit UpdateHabit(Guid habitId, HabitRequest HabitRequest);
+        Habit UpdateHabit(Guid habitId, Habit HabitRequest);
 
     }
 }

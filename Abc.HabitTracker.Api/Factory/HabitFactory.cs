@@ -31,5 +31,18 @@ namespace Abc.HabitTracker.Api.Factory
                 DayOffList = dayOffList
             };
         }
+
+        public Habit CreateUpdatedData(HabitRequest habitRequest, Habit oldHabit)
+        {
+            List<DayOff> dayOffList = CreateDayOff(habitRequest.DaysOff);
+            return new Habit()
+            {
+                ID = oldHabit.ID,
+                Name = habitRequest.Name,
+                UserID = oldHabit.UserID,
+                CreatedAt = oldHabit.CreatedAt,
+                DayOffList = dayOffList
+            };
+        }
     }
 }

@@ -19,37 +19,37 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpGet("api/v1/users/{userID}/habits")]
-        public List<Habit> All(Guid userID)
+        public List<HabitResponse> All(Guid userID)
         {
             return habitService.GetHabitByUserId(userID);
         }
 
         [HttpGet("api/v1/users/{userID}/habits/{id}")]
-        public ActionResult<Habit> Get(Guid userID, Guid id)
+        public ActionResult<HabitResponse> Get(Guid userID, Guid id)
         {
             return null;
         }
 
         [HttpPost("api/v1/users/{userID}/habits")]
-        public Habit AddNewHabit(Guid userID, [FromBody] HabitRequest data)
+        public HabitResponse AddNewHabit(Guid userID, [FromBody] HabitRequest data)
         {
             return habitService.CreateHabit(data, userID);
         }
 
         [HttpPut("api/v1/users/{userID}/habits/{id}")]
-        public ActionResult<Habit> UpdateHabit(Guid userID, Guid id, [FromBody] HabitRequest data)
+        public ActionResult<HabitResponse> UpdateHabit(Guid userID, Guid id, [FromBody] HabitRequest data)
         {
-            return null;
+            return habitService.UpdateHabit(userID, id, data);
         }
 
         [HttpDelete("api/v1/users/{userID}/habits/{id}")]
-        public ActionResult<Habit> DeleteHabit(Guid userId, Guid id)
+        public ActionResult<HabitResponse> DeleteHabit(Guid userId, Guid id)
         {
             return habitService.DeleteHabit(userId, id);
         }
 
         [HttpPost("api/v1/users/{userID}/habits/{id}/logs")]
-        public ActionResult<Habit> Log(Guid userID, Guid id)
+        public ActionResult<HabitResponse> Log(Guid userID, Guid id)
         {
             return null;
         }
