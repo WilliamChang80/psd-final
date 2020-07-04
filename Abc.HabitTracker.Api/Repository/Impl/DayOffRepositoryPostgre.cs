@@ -52,5 +52,13 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             applicationDb.SaveChanges();
             return dayOffs;
         }
+        public List<DayOff> UpdateDayOff(List<DayOff> dayOffList, Guid habitId)
+        {
+            var habitID = new NpgsqlParameter("@habitID", habitId);
+            applicationDb.Database
+            .ExecuteSqlRaw("DELETE FROM habit_dayoff WHERE \"HabitID\" = @habitID;", habitID);
+            CreateDayOff(dayOffList);
+            return dayOffList;
+        }
     }
 }

@@ -124,7 +124,6 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             ValidateUserID(userId, habitId);
             List<String> dayOffs = dayOffRepository.GetDayOffByHabitId(habitId);
-            Console.WriteLine(dayOffs.Count);
             Habit habit = habitRepository.DeleteHabit(habitId);
             dayOffRepository.DeleteDayOff(habitId);
             return ConvertFromHabitToHabitResponseByRemovingDayOff(habit, dayOffs);
@@ -136,6 +135,8 @@ namespace Abc.HabitTracker.Api.Service.Impl
             Habit habit = habitRepository.GetHabitById(habitId);
             HabitFactory habitFactory = new HabitFactory();
             Habit updatedHabit = habitFactory.CreateUpdatedData(habitRequest, habit);
+            List<DayOff> dayOffList = DayOffFactory.Create(habitRequest.DaysOff, habit.ID);
+            dayOffRepository.UpdateDayOff(dayOffList, habitId);
             habitRepository.UpdateHabit(habitId, updatedHabit);
             return ConvertFromHabitToHabitResponse(updatedHabit);
         }

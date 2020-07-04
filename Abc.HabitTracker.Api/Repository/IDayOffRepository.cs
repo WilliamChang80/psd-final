@@ -11,5 +11,7 @@ namespace Abc.HabitTracker.Api.Repository
         List<DayOff> CreateDayOff(List<DayOff> dayOffList);
 
         List<DayOff> DeleteDayOff(Guid habitId);
+
+        List<DayOff> UpdateDayOff(List<DayOff> dayOffList, Guid habitId);
     }
 }
