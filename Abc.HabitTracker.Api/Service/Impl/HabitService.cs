@@ -15,24 +15,24 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         private readonly IUserRepository userRepository;
 
-        private readonly ILogsRepository logsRepository;
+        private readonly ILogsService logsService;
 
         private readonly IDayOffRepository dayOffRepository;
         public HabitService(IHabitRepository _habitRepository, IUserRepository _userRepository,
-        ILogsRepository _logsRepository, IDayOffRepository _dayOffRepository)
+        ILogsService _logsService, IDayOffRepository _dayOffRepository)
         {
             habitRepository = _habitRepository;
             userRepository = _userRepository;
-            logsRepository = _logsRepository;
+            logsService = _logsService;
             dayOffRepository = _dayOffRepository;
         }
 
         public HabitResponse GetRequiredDataFromLogs(Guid HabitId)
         {
-            Int16 CurrentStreak = logsRepository.getCurrentStreak(HabitId);
-            Int16 LongestStreak = logsRepository.getLongestStreak(HabitId);
-            Int16 LogCount = logsRepository.getLogCount(HabitId);
-            List<DateTime> Logs = logsRepository.GetAllLogsTime(HabitId);
+            Int16 CurrentStreak = logsService.GetCurrentStreak(HabitId);
+            Int16 LongestStreak = logsService.GetLongestStreak(HabitId);
+            Int16 LogCount = logsService.GetLogCount(HabitId);
+            List<DateTime> Logs = logsService.GetAllLogsTime(HabitId);
 
             return new HabitResponse()
             {
@@ -146,7 +146,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
             ValidateUserID(userId, habitId);
             Habit habit = habitRepository.GetHabitById(habitId);
             Logs logs = LogsFactory.CreateLogs(habit);
-            logsRepository.CreateLogs(logs);
+            logsService.CreateLogs(logs);
             return ConvertFromHabitToHabitResponse(habit);
         }
     }

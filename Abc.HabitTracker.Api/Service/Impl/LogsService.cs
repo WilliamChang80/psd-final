@@ -2,6 +2,7 @@ using System;
 using Abc.HabitTracker.Api.Dto;
 using Abc.HabitTracker.Api.Service;
 using Abc.HabitTracker.Api.Repository;
+using System.Collections.Generic;
 
 namespace Abc.HabitTracker.Api.Service.Impl
 {
@@ -13,9 +14,27 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             logsRepository = _logsRepository;
         }
-        public Habit CreateLogs(Logs logs)
+
+        public Logs CreateLogs(Logs logs)
         {
-            return null;
+            return logsRepository.CreateLogs(logs);
+        }
+
+        public Int16 GetCurrentStreak(Guid HabitId)
+        {
+            return logsRepository.GetCurrentStreak(HabitId);
+        }
+        public Int16 GetLongestStreak(Guid HabitId)
+        {
+            return logsRepository.GetLongestStreak(HabitId);
+        }
+        public Int16 GetLogCount(Guid HabitId)
+        {
+            return logsRepository.GetLogCount(HabitId);
+        }
+        public List<DateTime> GetAllLogsTime(Guid HabitId)
+        {
+            return logsRepository.GetAllLogsTime(HabitId);
         }
     }
 }

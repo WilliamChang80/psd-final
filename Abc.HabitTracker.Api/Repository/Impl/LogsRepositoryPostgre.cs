@@ -21,15 +21,15 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             return logs;
         }
 
-        public Int16 getCurrentStreak(Guid HabitId)
+        public Int16 GetCurrentStreak(Guid HabitId)
         {
             return 0;
         }
-        public Int16 getLongestStreak(Guid HabitId)
+        public Int16 GetLongestStreak(Guid HabitId)
         {
             return 0;
         }
-        public Int16 getLogCount(Guid HabitId)
+        public Int16 GetLogCount(Guid HabitId)
         {
             return (Int16)applicationDb.Logs
             .Where(l => l.HabitID == HabitId)
