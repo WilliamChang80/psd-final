@@ -23,7 +23,7 @@ namespace Abc.HabitTracker.Api.Factory
                         UserID = UserID,
                         CreatedAt = DateTime.Now
                     };
-                case "Workaholic ":
+                case "Workaholic":
                     return new Badge()
                     {
                         ID = Guid.NewGuid(),

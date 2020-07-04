@@ -51,10 +51,13 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             Dictionary<Guid, List<DateTime>> HabitAndLogsList = new Dictionary<Guid, List<DateTime>>();
             foreach (Habit habit in habits)
             {
-                List<DateTime> dateTimes = GetAllLogsTime(habit.ID).Distinct().ToList();
+                List<DateTime> dateTimes = GetAllLogsTime(habit.ID).Distinct()
+                .OrderBy(x => x)
+                .ToList();
                 HabitAndLogsList.Add(habit.ID, dateTimes);
             }
             return HabitAndLogsList;
         }
+
     }
 }
