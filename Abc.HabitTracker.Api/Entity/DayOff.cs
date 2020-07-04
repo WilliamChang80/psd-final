@@ -17,5 +17,17 @@ namespace Abc.HabitTracker.Api
         public Guid HabitID { get; set; }
         [JsonPropertyName("day_name")]
         public String DayName { get; set; }
+
+        public DayOff(String DayName)
+        {
+            List<String> requiredDayOff = new List<String>() {
+                "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+            };
+            if (!requiredDayOff.Contains(DayName))
+            {
+                throw new Exception("Day Format Is Wrong!");
+            }
+            this.DayName = DayName;
+        }
     }
 }

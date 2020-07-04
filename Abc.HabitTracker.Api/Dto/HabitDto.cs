@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Abc.HabitTracker.Api.Dto
 {
@@ -13,8 +14,28 @@ namespace Abc.HabitTracker.Api.Dto
         [JsonPropertyName("name")]
         public String Name { get; set; }
 
-        [JsonPropertyName("days_off")]
+        [JsonProperty(PropertyName = "days_off")]
         public List<String> DaysOff { get; set; }
+
+        private bool CheckIfDaysIsUnique(List<String> DaysOff)
+        {
+            return DaysOff.Count == DaysOff.Distinct().Count();
+        }
+
+        [JsonConstructor]
+        public HabitRequest(String Name, List<String> DaysOff)
+        {
+            if (Name.Length < 2 || Name.Length > 100 || Name == null)
+            {
+                throw new Exception("Name Length Must Between 2 and 100 character");
+            }
+            if (DaysOff.Count >= 7 || !CheckIfDaysIsUnique(DaysOff))
+            {
+                throw new Exception("Day Off Must Different and Less than 7");
+            }
+            this.Name = Name;
+            this.DaysOff = DaysOff;
+        }
     }
 
     public class HabitResponse

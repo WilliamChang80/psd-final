@@ -12,11 +12,9 @@ namespace Abc.HabitTracker.Api.Factory
             List<DayOff> dayOffList = new List<DayOff>();
             foreach (String day in dayList)
             {
-                //call constructor for validation here
-                DayOff dayOff = new DayOff()
+                DayOff dayOff = new DayOff(day)
                 {
-                    HabitID = habitId,
-                    DayName = day
+                    HabitID = habitId
                 };
                 dayOffList.Add(dayOff);
             }

@@ -12,8 +12,7 @@ namespace Abc.HabitTracker.Api.Factory
             List<DayOff> DayOffList = new List<DayOff>();
             foreach (String day in DaysOff)
             {
-                DayOff dayOff = new DayOff();
-                dayOff.DayName = day;
+                DayOff dayOff = new DayOff(day);
                 DayOffList.Add(dayOff);
             }
             return DayOffList;

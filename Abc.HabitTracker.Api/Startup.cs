@@ -20,6 +20,8 @@ using Abc.HabitTracker.Api.Repository.Impl;
 using Abc.HabitTracker.Api.Service;
 using Abc.HabitTracker.Api.Service.Impl;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Newtonsoft.Json.Serialization;
 
 namespace Abc.HabitTracker.Api
 {
@@ -35,6 +37,9 @@ namespace Abc.HabitTracker.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+            .AddNewtonsoftJson();
+
             services.AddControllers()
             .ConfigureApiBehaviorOptions(options =>
             {
