@@ -40,6 +40,7 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             return applicationDb.Logs
             .Where(l => l.HabitID == HabitId)
             .Select(l => l.CreatedAt)
+            .OrderBy(l => l)
             .ToList();
         }
 

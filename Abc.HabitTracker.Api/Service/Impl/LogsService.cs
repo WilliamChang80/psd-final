@@ -53,15 +53,22 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         public bool isDominating(Logs logs)
         {
-            List<String> dayOffList = dayOffRepository.GetDayOffByHabitId(logs.HabitID);
-            int count = 0;
-            foreach (String str in dayOffList)
+            List<DateTime> dateTimes = logsRepository.GetAllLogsTime(logs.HabitID);
+            int count = 1;
+            for (int j = 0; j < dateTimes.Count - 1; j++)
             {
+                if (DateTime.Compare(dateTimes[j], dateTimes[j + 1]) == -1)
+                {
+                    count++;
+                }
+                else count = 1;
+
                 if (count == 4)
                 {
                     return true;
                 }
             }
+
             return false;
         }
 
