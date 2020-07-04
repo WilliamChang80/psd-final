@@ -54,6 +54,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
         public bool isDominating(Logs logs)
         {
             List<DateTime> dateTimes = logsRepository.GetAllLogsTime(logs.HabitID);
+            List<String> dayOffs = dayOffRepository.GetDayOffByHabitId(logs.HabitID);
             int count = 1;
             for (int j = 0; j < dateTimes.Count - 1; j++)
             {
@@ -61,8 +62,10 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 {
                     count++;
                 }
-                else count = 1;
-
+                else if (!dayOffs.Contains(dateTimes[j].DayOfWeek.ToString().Substring(0, 3)))
+                {
+                    count = 1;
+                }
                 if (count == 4)
                 {
                     return true;
@@ -75,7 +78,6 @@ namespace Abc.HabitTracker.Api.Service.Impl
         public Logs CreateLogs(Logs logs)
         {
             logsRepository.CreateLogs(logs);
-            //datetime udah beda
             Dictionary<Guid, List<DateTime>> HabitAndLogs = logsRepository.GetHabitAndLogsFromUserID(logs.UserID);
             BadgeHandler badge = new BadgeHandler(badgeService);
             Attach(badge);
