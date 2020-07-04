@@ -23,7 +23,9 @@ namespace Abc.HabitTracker.Api.Repository.Impl
 
         public Badge CreateBadge(Badge badge)
         {
-            return null;
+            applicationDb.Badges.Add(badge);
+            applicationDb.SaveChanges();
+            return badge;
         }
     }
 }

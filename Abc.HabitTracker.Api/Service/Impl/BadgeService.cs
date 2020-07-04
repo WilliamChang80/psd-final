@@ -2,6 +2,7 @@ using System;
 using Abc.HabitTracker.Api.Repository;
 using System.Collections.Generic;
 using Abc.HabitTracker.Api.Service;
+using Abc.HabitTracker.Api.Event;
 
 namespace Abc.HabitTracker.Api.Service.Impl
 {
@@ -20,7 +21,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         public Badge CreateBadge(Badge badge)
         {
-            return null;
+            return badgeRepository.CreateBadge(badge);
         }
     }
 }

@@ -42,5 +42,19 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             .Select(l => l.CreatedAt)
             .ToList();
         }
+
+        public Dictionary<Guid, List<DateTime>> GetHabitAndLogsFromUserID(Guid UserID)
+        {
+            List<Habit> habits = applicationDb.Habits
+            .Where(habit => habit.UserID == UserID)
+            .ToList();
+            Dictionary<Guid, List<DateTime>> HabitAndLogsList = new Dictionary<Guid, List<DateTime>>();
+            foreach (Habit habit in habits)
+            {
+                List<DateTime> dateTimes = GetAllLogsTime(habit.ID).Distinct().ToList();
+                HabitAndLogsList.Add(habit.ID, dateTimes);
+            }
+            return HabitAndLogsList;
+        }
     }
 }

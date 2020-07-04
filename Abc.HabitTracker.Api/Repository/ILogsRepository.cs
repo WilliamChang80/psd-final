@@ -11,5 +11,7 @@ namespace Abc.HabitTracker.Api.Repository
         Int16 GetLongestStreak(Guid HabitId);
         Int16 GetLogCount(Guid HabitId);
         List<DateTime> GetAllLogsTime(Guid HabitId);
+
+        Dictionary<Guid, List<DateTime>> GetHabitAndLogsFromUserID(Guid UserID);
     }
 }
