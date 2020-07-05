@@ -14,21 +14,29 @@ namespace Abc.HabitTracker.Api
         [JsonPropertyName("id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid LogsID { get; set; }
+        public Guid LogsID { get; private set; }
 
         [JsonProperty("user_id")]
         [ForeignKey(nameof(User))]
-        public Guid UserID { get; set; }
+        public Guid UserID { get; private set; }
 
         [JsonProperty("habit_id")]
         [ForeignKey(nameof(Habit))]
-        public Guid HabitID { get; set; }
+        public Guid HabitID { get; private set; }
 
         [JsonPropertyName("day_name")]
-        public String DayName { get; set; }
+        public String DayName { get; private set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
+        public Logs(Guid LogsID, Guid UserID, Guid HabitID, String DayName, DateTime CreatedAt)
+        {
+            this.LogsID = LogsID;
+            this.UserID = UserID;
+            this.HabitID = HabitID;
+            this.DayName = DayName;
+            this.CreatedAt = CreatedAt;
+        }
     }
 }

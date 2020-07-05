@@ -7,7 +7,7 @@ namespace Abc.HabitTracker.Api.Factory
 {
     class HabitFactory
     {
-        public List<DayOff> CreateDayOff(List<String> DaysOff)
+        public static List<DayOff> CreateDayOff(List<String> DaysOff)
         {
             List<DayOff> DayOffList = new List<DayOff>();
             foreach (String day in DaysOff)
@@ -17,30 +17,16 @@ namespace Abc.HabitTracker.Api.Factory
             }
             return DayOffList;
         }
-        public Habit Create(HabitRequest habitRequest, Guid UserID)
+        public static Habit Create(HabitRequest habitRequest, Guid UserID)
         {
             List<DayOff> dayOffList = CreateDayOff(habitRequest.DaysOff);
-            return new Habit()
-            {
-                ID = Guid.NewGuid(),
-                Name = habitRequest.Name,
-                UserID = UserID,
-                CreatedAt = DateTime.Now,
-                DayOffList = dayOffList
-            };
+            return new Habit(Guid.NewGuid(), habitRequest.Name, UserID, DateTime.Now, dayOffList);
         }
 
-        public Habit CreateUpdatedData(HabitRequest habitRequest, Habit oldHabit)
+        public static Habit CreateUpdatedData(HabitRequest habitRequest, Habit oldHabit)
         {
             List<DayOff> dayOffList = CreateDayOff(habitRequest.DaysOff);
-            return new Habit()
-            {
-                ID = oldHabit.ID,
-                Name = habitRequest.Name,
-                UserID = oldHabit.UserID,
-                CreatedAt = oldHabit.CreatedAt,
-                DayOffList = dayOffList
-            };
+            return new Habit(oldHabit.ID, habitRequest.Name, oldHabit.UserID, oldHabit.CreatedAt, dayOffList);
         }
     }
 }

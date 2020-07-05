@@ -14,18 +14,32 @@ namespace Abc.HabitTracker.Api
         [JsonPropertyName("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public Guid ID { get; set; }
+        public Guid ID { get; private set; }
 
         [JsonPropertyName("name")]
-        public String Name { get; set; }
+        public String Name { get; private set; }
 
         [JsonPropertyName("description")]
-        public String Description { get; set; }
+        public String Description { get; private set; }
 
         [JsonPropertyName("user_id")]
-        public Guid UserID { get; set; }
+        public Guid UserID { get; private set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
+
+        public Badge(Guid ID, String Name, String Description, Guid UserID, DateTime CreatedAt)
+        {
+            this.ID = ID;
+            this.Name = Name;
+            this.Description = Description;
+            this.UserID = UserID;
+            this.CreatedAt = CreatedAt;
+        }
+
+        public Badge()
+        {
+
+        }
     }
 }

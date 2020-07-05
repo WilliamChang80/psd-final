@@ -9,14 +9,8 @@ namespace Abc.HabitTracker.Api.Factory
     {
         public static Logs CreateLogs(Habit habit)
         {
-            return new Logs()
-            {
-                LogsID = Guid.NewGuid(),
-                UserID = habit.UserID,
-                HabitID = habit.ID,
-                DayName = System.DateTime.Now.DayOfWeek.ToString().Substring(0, 3),
-                CreatedAt = DateTime.Now
-            };
+            return new Logs(Guid.NewGuid(), habit.UserID, habit.ID,
+            System.DateTime.Now.DayOfWeek.ToString().Substring(0, 3), DateTime.Now);
         }
     }
 }

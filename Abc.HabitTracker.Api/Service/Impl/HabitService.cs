@@ -83,9 +83,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 ID = habit.ID,
                 Name = habit.Name,
                 DayOffList = dayOffList,
-                //currentStreak get from database logs
                 CurrentStreak = logs.CurrentStreak,
-                //currentStreak get from database logs
                 LongestStreak = logs.LongestStreak,
                 LogCount = logs.LogCount,
                 Logs = logs.Logs,
@@ -113,8 +111,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
         }
         public HabitResponse CreateHabit(HabitRequest HabitRequest, Guid UserID)
         {
-            HabitFactory habitFactory = new HabitFactory();
-            Habit habit = habitFactory.Create(HabitRequest, UserID);
+            Habit habit = HabitFactory.Create(HabitRequest, UserID);
             List<DayOff> dayOffs = DayOffFactory.Create(HabitRequest.DaysOff, habit.ID);
             habitRepository.CreateHabit(habit);
             dayOffRepository.CreateDayOff(dayOffs);
@@ -133,8 +130,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             ValidateUserID(userId, habitId);
             Habit habit = habitRepository.GetHabitById(habitId);
-            HabitFactory habitFactory = new HabitFactory();
-            Habit updatedHabit = habitFactory.CreateUpdatedData(habitRequest, habit);
+            Habit updatedHabit = HabitFactory.CreateUpdatedData(habitRequest, habit);
             List<DayOff> dayOffList = DayOffFactory.Create(habitRequest.DaysOff, habit.ID);
             dayOffRepository.UpdateDayOff(dayOffList, habitId);
             habitRepository.UpdateHabit(habitId, updatedHabit);
