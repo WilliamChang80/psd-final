@@ -29,9 +29,9 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         public HabitResponse GetRequiredDataFromLogs(Guid HabitId)
         {
-            Int16 CurrentStreak = logsService.GetCurrentStreak(HabitId);
-            Int16 LongestStreak = logsService.GetLongestStreak(HabitId);
-            Int16 LogCount = logsService.GetLogCount(HabitId);
+            Int32 CurrentStreak = logsService.GetCurrentStreak(HabitId);
+            Int32 LongestStreak = logsService.GetLongestStreak(HabitId);
+            Int32 LogCount = logsService.GetLogCount(HabitId);
             List<DateTime> Logs = logsService.GetAllLogsTime(HabitId);
 
             return new HabitResponse()

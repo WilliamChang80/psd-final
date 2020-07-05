@@ -24,19 +24,18 @@ namespace Abc.HabitTracker.Api
         [ForeignKey(nameof(Habit))]
         public Guid HabitID { get; private set; }
 
-        [JsonPropertyName("day_name")]
-        public String DayName { get; private set; }
-
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; private set; }
 
-        public Logs(Guid LogsID, Guid UserID, Guid HabitID, String DayName, DateTime CreatedAt)
+        [JsonPropertyName("streak")]
+        public Int32 Streak { get; private set; }
+        public Logs(Guid LogsID, Guid UserID, Guid HabitID, DateTime CreatedAt, Int32 Streak)
         {
             this.LogsID = LogsID;
             this.UserID = UserID;
             this.HabitID = HabitID;
-            this.DayName = DayName;
             this.CreatedAt = CreatedAt;
+            this.Streak = Streak;
         }
     }
 }

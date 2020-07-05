@@ -11,13 +11,13 @@ namespace Abc.HabitTracker.Api.Dto
     public class LogsResponse
     {
         [JsonPropertyName("current_streak")]
-        public Int16 CurrentStreak { get; set; }
+        public Int32 CurrentStreak { get; set; }
 
         [JsonPropertyName("longest_streak")]
-        public Int16 LongestStreak { get; set; }
+        public Int32 LongestStreak { get; set; }
 
         [JsonPropertyName("log_count")]
-        public Int16 LogCount { get; set; }
+        public Int32 LogCount { get; set; }
 
         [JsonPropertyName("logs")]
         public List<DateTime> Logs { get; set; }

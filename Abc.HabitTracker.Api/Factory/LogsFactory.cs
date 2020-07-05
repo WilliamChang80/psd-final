@@ -7,10 +7,12 @@ namespace Abc.HabitTracker.Api.Factory
 {
     class LogsFactory
     {
+
         public static Logs CreateLogs(Habit habit)
         {
-            return new Logs(Guid.NewGuid(), habit.UserID, habit.ID,
-            System.DateTime.Now.DayOfWeek.ToString().Substring(0, 3), DateTime.Now);
+            const Int32 INITIAL_STREAK_COUNT = 0;
+
+            return new Logs(Guid.NewGuid(), habit.UserID, habit.ID, DateTime.Now, INITIAL_STREAK_COUNT);
         }
     }
 }

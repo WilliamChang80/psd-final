@@ -88,6 +88,9 @@ namespace Abc.HabitTracker.Api.Migrations
                     b.Property<Guid>("UserID")
                         .HasColumnType("uuid");
 
+                    b.Property<Int32>("Streak")
+                        .HasColumnType("int");
+
                     b.HasKey("LogsID");
 
                     b.HasIndex("HabitID");

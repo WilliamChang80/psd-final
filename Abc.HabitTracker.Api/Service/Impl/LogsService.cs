@@ -53,7 +53,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
             DateTime date = habits[0];
             int workCount = 1;
             int skipCount = 0;
-            for (int j = 0; j < habits.Count; j++)
+            for (int j = 0; j < habits.Count - 1; j++)
             {
                 if (DateTime.Compare(habits[j], habits[j + 1]) == -1)
                 {
@@ -133,15 +133,15 @@ namespace Abc.HabitTracker.Api.Service.Impl
             return logs;
         }
 
-        public Int16 GetCurrentStreak(Guid HabitId)
+        public Int32 GetCurrentStreak(Guid HabitId)
         {
             return logsRepository.GetCurrentStreak(HabitId);
         }
-        public Int16 GetLongestStreak(Guid HabitId)
+        public Int32 GetLongestStreak(Guid HabitId)
         {
             return logsRepository.GetLongestStreak(HabitId);
         }
-        public Int16 GetLogCount(Guid HabitId)
+        public Int32 GetLogCount(Guid HabitId)
         {
             return logsRepository.GetLogCount(HabitId);
         }

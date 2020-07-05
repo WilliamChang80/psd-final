@@ -88,7 +88,7 @@ namespace Abc.HabitTracker.Api.Migrations
                     LogsID = table.Column<Guid>(nullable: false),
                     UserID = table.Column<Guid>(nullable: false),
                     HabitID = table.Column<Guid>(nullable: false),
-                    DayName = table.Column<string>(nullable: true),
+                    Streak = table.Column<Int32>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
