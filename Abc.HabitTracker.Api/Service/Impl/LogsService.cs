@@ -48,6 +48,43 @@ namespace Abc.HabitTracker.Api.Service.Impl
 
         public bool isEpicComeback(Logs logs)
         {
+            List<String> dayOffs = dayOffRepository.GetDayOffByHabitId(logs.HabitID);
+            List<DateTime> habits = logsRepository.GetAllLogsTime(logs.HabitID);
+            DateTime date = habits[0];
+            int workCount = 1;
+            int skipCount = 0;
+            for (int j = 0; j < habits.Count; j++)
+            {
+                if (DateTime.Compare(habits[j], habits[j + 1]) == -1)
+                {
+                    workCount++;
+                }
+                else if (!dayOffs.Contains(habits[j].DayOfWeek.ToString().Substring(0, 3)))
+                {
+                    workCount = 1;
+                    date = habits[j];
+                }
+                if (workCount == 10)
+                {
+                    date = date.AddDays(-1);
+                    while (true)
+                    {
+                        if (!habits.Contains(date) && !dayOffs.Contains(date.DayOfWeek.ToString().Substring(0, 3)))
+                        {
+                            skipCount++;
+                        }
+                        if (skipCount == 10)
+                        {
+                            return true;
+                        }
+                        if (habits.Contains(date) && !dayOffs.Contains(date.DayOfWeek.ToString().Substring(0, 3)))
+                        {
+                            return false;
+                        }
+                        date = date.AddDays(-1);
+                    }
+                }
+            }
             return false;
         }
 
