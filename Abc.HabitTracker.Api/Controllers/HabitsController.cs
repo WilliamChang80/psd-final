@@ -25,7 +25,7 @@ namespace Abc.HabitTracker.Api.Controllers
         }
 
         [HttpGet("api/v1/users/{userID}/habits/{id}")]
-        public ActionResult<HabitResponse> Get(Guid userID, Guid id)
+        public HabitResponse Get(Guid userID, Guid id)
         {
             return habitService.GetHabitById(userID, id);
         }

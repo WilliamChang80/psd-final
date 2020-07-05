@@ -23,7 +23,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
         }
 
 
-        public bool isWorkaholic(Dictionary<Guid, List<DateTime>> HabitAndLogs)
+        private bool isWorkaholic(Dictionary<Guid, List<DateTime>> HabitAndLogs)
         {
             int count = 0;
             List<DateTime> dateTimes = new List<DateTime>();
@@ -46,7 +46,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
             return false;
         }
 
-        public bool isEpicComeback(Logs logs)
+        private bool isEpicComeback(Logs logs)
         {
             List<String> dayOffs = dayOffRepository.GetDayOffByHabitId(logs.HabitID);
             List<DateTime> habits = logsRepository.GetAllLogsTime(logs.HabitID);
@@ -88,7 +88,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
             return false;
         }
 
-        public bool isDominating(Logs logs)
+        private bool isDominating(Logs logs)
         {
             List<DateTime> dateTimes = logsRepository.GetAllLogsTime(logs.HabitID);
             List<String> dayOffs = dayOffRepository.GetDayOffByHabitId(logs.HabitID);

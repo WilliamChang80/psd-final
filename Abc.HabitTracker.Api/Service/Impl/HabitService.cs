@@ -42,7 +42,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 Logs = Logs
             };
         }
-        public HabitResponse ConvertFromHabitToHabitResponse(Habit habit)
+        private HabitResponse ConvertFromHabitToHabitResponse(Habit habit)
         {
             HabitResponse logs = GetRequiredDataFromLogs(habit.ID);
             List<String> list = dayOffRepository.GetDayOffByHabitId(habit.ID);
@@ -73,7 +73,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
             }
         }
 
-        public HabitResponse ConvertFromHabitToHabitResponseByRemovingDayOff(Habit habit, List<String> dayOffList)
+        private HabitResponse ConvertFromHabitToHabitResponseByRemovingDayOff(Habit habit, List<String> dayOffList)
         {
             HabitResponse logs = GetRequiredDataFromLogs(habit.ID);
             return new HabitResponse()
