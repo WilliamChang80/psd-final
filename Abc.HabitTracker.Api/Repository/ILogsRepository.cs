@@ -13,5 +13,8 @@ namespace Abc.HabitTracker.Api.Repository
         List<DateTime> GetAllLogsTime(Guid HabitId);
 
         Dictionary<Guid, List<DateTime>> GetHabitAndLogsFromUserID(Guid UserID);
+        Logs GetLatestLogSubmission(Guid HabitId);
+
+        bool IsEmptyLog(Guid HabitID);
     }
 }

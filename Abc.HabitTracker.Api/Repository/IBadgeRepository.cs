@@ -8,7 +8,6 @@ namespace Abc.HabitTracker.Api.Repository
     {
         List<Badge> GetBadgeByUserId(Guid UserId);
 
-        //changed to DTO later
         Badge CreateBadge(Badge badge);
 
     }

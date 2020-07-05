@@ -8,11 +8,9 @@ namespace Abc.HabitTracker.Api.Factory
     class LogsFactory
     {
 
-        public static Logs CreateLogs(Habit habit)
+        public static Logs CreateLogs(Habit habit, Int32 StreakCount)
         {
-            const Int32 INITIAL_STREAK_COUNT = 0;
-
-            return new Logs(Guid.NewGuid(), habit.UserID, habit.ID, DateTime.Now, INITIAL_STREAK_COUNT);
+            return new Logs(Guid.NewGuid(), habit.UserID, habit.ID, DateTime.Now, StreakCount);
         }
     }
 }

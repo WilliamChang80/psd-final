@@ -17,6 +17,7 @@ namespace Abc.HabitTracker.Api.Service
 
         List<DateTime> GetAllLogsTime(Guid HabitId);
 
-
+        Logs GetLatestSubmission(Guid HabitId);
+        bool IsEmptyLog(Guid HabitID);
     }
 }

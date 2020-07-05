@@ -163,5 +163,15 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 obs.Update(e);
             }
         }
+
+        public Logs GetLatestSubmission(Guid HabitID)
+        {
+            return logsRepository.GetLatestLogSubmission(HabitID);
+        }
+
+        public bool IsEmptyLog(Guid HabitID)
+        {
+            return logsRepository.IsEmptyLog(HabitID);
+        }
     }
 }

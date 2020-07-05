@@ -23,11 +23,18 @@ namespace Abc.HabitTracker.Api.Repository.Impl
 
         public Int32 GetCurrentStreak(Guid HabitId)
         {
-            return 0;
+            Int32 currentStreak = IsEmptyLog(HabitId) ? 0 :
+            applicationDb.Logs
+            .Where(h => h.HabitID == HabitId)
+            .OrderByDescending(l => l.CreatedAt)
+            .Select(l => l.Streak)
+            .First();
+
+            return currentStreak;
         }
         public Int32 GetLongestStreak(Guid HabitId)
         {
-            Int32 longestStreak = applicationDb.Logs.Count() == 0 ? 0 :
+            Int32 longestStreak = IsEmptyLog(HabitId) ? 0 :
             applicationDb.Logs
             .Where(h => h.HabitID == HabitId)
             .Max(h => h.Streak);
@@ -65,5 +72,17 @@ namespace Abc.HabitTracker.Api.Repository.Impl
             return HabitAndLogsList;
         }
 
+        public Logs GetLatestLogSubmission(Guid HabitId)
+        {
+            return applicationDb.Logs
+                    .Where(h => h.HabitID == HabitId)
+                    .OrderByDescending(l => l.CreatedAt)
+                    .First();
+        }
+
+        public bool IsEmptyLog(Guid HabitID)
+        {
+            return applicationDb.Logs.Where(h => h.HabitID == HabitID).Count() == 0;
+        }
     }
 }

@@ -51,9 +51,7 @@ namespace Abc.HabitTracker.Api.Service.Impl
                 ID = habit.ID,
                 Name = habit.Name,
                 DayOffList = list,
-                //currentStreak get from database logs
                 CurrentStreak = logs.CurrentStreak,
-                //currentStreak get from database logs
                 LongestStreak = logs.LongestStreak,
                 LogCount = logs.LogCount,
                 Logs = logs.Logs,
@@ -141,9 +139,42 @@ namespace Abc.HabitTracker.Api.Service.Impl
         {
             ValidateUserID(userId, habitId);
             Habit habit = habitRepository.GetHabitById(habitId);
-            Logs logs = LogsFactory.CreateLogs(habit);
+            Int32 streakCount = GetStreakCount(habitId);
+            Logs logs = LogsFactory.CreateLogs(habit, streakCount);
             logsService.CreateLogs(logs);
             return ConvertFromHabitToHabitResponse(habit);
         }
+
+        private Int32 GetStreakCount(Guid habitId)
+        {
+            if (logsService.IsEmptyLog(habitId))
+            {
+                return 1;
+            }
+            else
+            {
+                Logs logs = logsService.GetLatestSubmission(habitId);
+                List<String> dayOffList = dayOffRepository.GetDayOffByHabitId(habitId);
+                DateTime now = DateTime.Now;
+                if (now.Day == logs.CreatedAt.Day && now.Month == logs.CreatedAt.Month && now.Year == now.Year)
+                {
+                    return logs.Streak + 1;
+                }
+                for (int j = 0; j < (now - logs.CreatedAt).TotalDays; j++)
+                {
+                    now = now.AddDays(-1);
+                    if (now.Day == logs.CreatedAt.Day && now.Month == logs.CreatedAt.Month && now.Year == now.Year)
+                    {
+                        return logs.Streak + 1;
+                    }
+                    if (!dayOffList.Contains(now.DayOfWeek.ToString().Substring(0, 3)))
+                    {
+                        return 1;
+                    }
+                }
+                return logs.Streak + 1;
+            }
+        }
+
     }
 }
